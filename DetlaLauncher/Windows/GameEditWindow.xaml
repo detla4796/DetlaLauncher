@@ -10,38 +10,17 @@
         Background="{StaticResource SteamPanelBrush}">
 
     <Grid>
-
-        <!-- Верхняя панель -->
-        <Border Background="{StaticResource SteamBorderBrush}" Height="32" VerticalAlignment="Top"
-                MouseDown="TopBar_MouseDown">
+        <Border Background="{StaticResource SteamBorderBrush}" Height="32" VerticalAlignment="Top" MouseDown="TopBar_MouseDown">
             <DockPanel>
-                <TextBlock Text="DETLA LAUNCHER"
-                           Foreground="{StaticResource SteamAccentBrush}"
-                           FontWeight="Bold"
-                           Margin="10,0,0,0"
-                           VerticalAlignment="Center"/>
+                <TextBlock Text="DETLA LAUNCHER" Foreground="{StaticResource SteamAccentBrush}" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center"/>
 
-                <Button Content="x"
-                        DockPanel.Dock="Right"
-                        Width="40"
-                        Background="{StaticResource SteamBorderBrush}"
-                        Foreground="{StaticResource SteamTextBrush}"
-                        BorderBrush="{StaticResource SteamAccentBrush}"
-                        Click="Close_Click"/>
+                <Button Content="x" DockPanel.Dock="Right" Width="40" Background="{StaticResource SteamBorderBrush}" Foreground="{StaticResource SteamTextBrush}" BorderBrush="{StaticResource SteamAccentBrush}" Click="Close_Click"/>
 
-                <TextBlock Text="Добавить игру"
-                           Foreground="{StaticResource SteamTextBrush}"
-                           Margin="10,0,0,0"
-                           VerticalAlignment="Center"/>
+                <TextBlock Text="Добавить игру" Foreground="{StaticResource SteamTextBrush}" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </DockPanel>
         </Border>
 
-        <!-- Контент -->
-        <Border Margin="10,40,10,10"
-                Background="{StaticResource SteamDarkBrush}"
-                BorderBrush="{StaticResource SteamBorderBrush}"
-                BorderThickness="1"
-                CornerRadius="4">
+        <Border Margin="10,40,10,10" Background="{StaticResource SteamDarkBrush}" BorderBrush="{StaticResource SteamBorderBrush}" BorderThickness="1" CornerRadius="4">
 
             <ScrollViewer VerticalScrollBarVisibility="Auto">
 
@@ -57,38 +36,20 @@
                     <TextBox x:Name="RatingBox" Height="26" Margin="0,0,0,12"/>
 
                     <TextBlock Text="Описание" FontWeight="SemiBold" Margin="0,0,0,4"/>
-                    <TextBox x:Name="DescriptionBox"
-                             Height="80"
-                             AcceptsReturn="True"
-                             VerticalScrollBarVisibility="Auto"
-                             TextWrapping="Wrap"
-                             Margin="0,0,0,12"/>
+                    <TextBox x:Name="DescriptionBox" Height="80" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Margin="0,0,0,12"/>
 
-                    <CheckBox x:Name="FavoriteCheck"
-                              Content="Добавить в избранное"
-                              Margin="0,5,0,15"/>
+                    <CheckBox x:Name="FavoriteCheck" Content="Добавить в избранное" Margin="0,5,0,15"/>
 
                     <Separator Background="{StaticResource SteamBorderBrush}" Margin="0,0,0,15"/>
 
                     <TextBlock Text="Источник" FontWeight="SemiBold" Margin="0,0,0,4"/>
-                    <TextBox x:Name="SourceNameBox" 
-                             Height="26" 
-                             Margin="0,0,0,8"
-                             ToolTip="Название источника (Steam, Epic Games, сайт и т.п.)"/>
+                    <TextBox x:Name="SourceNameBox" Height="26" Margin="0,0,0,8" ToolTip="Название источника (Steam, Epic Games, сайт и т.п.)"/>
 
                     <TextBlock Text="URL источника" FontWeight="SemiBold" Margin="0,0,0,4"/>
-                    <TextBox x:Name="SourceUrlBox" 
-                             Height="26" 
-                             Margin="0,0,0,20"
-                             ToolTip="https://..."/>
+                    <TextBox x:Name="SourceUrlBox" Height="26" Margin="0,0,0,20" ToolTip="https://..."/>
 
-                    <Button Content="Сохранить"
-                            Height="35"
-                            FontWeight="SemiBold"
-                            Click="Save_Click"/>
-
+                    <Button Content="Сохранить" Height="35" FontWeight="SemiBold" Click="Save_Click"/>
                 </StackPanel>
-
             </ScrollViewer>
         </Border>
 
