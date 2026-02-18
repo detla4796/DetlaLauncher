@@ -10,72 +10,213 @@
                 <Setter Property="FontSize" Value="12"/>
             </Style>
 
-            <Color x:Key="SteamDark">#1B2B1B</Color>
-            <Color x:Key="SteamPanel">#2F4F2F</Color>
-            <Color x:Key="SteamBorder">#0E1A0E</Color>
-            <Color x:Key="SteamAccent">#8BC53F</Color>
-            <Color x:Key="SteamButtonNormal">#3D5A3D</Color>
-            <Color x:Key="SteamButtonHover">#4A6A4A</Color>
+            <Color x:Key="SteamDark">#2C3528</Color>
+            <Color x:Key="SteamPanel">#3A4635</Color>
+            <Color x:Key="SteamBorder">#1E221D</Color>
+            <Color x:Key="SteamAccent">#4D6737</Color>
+            <Color x:Key="SteamButtonNormal">#3A4630</Color>
+            <Color x:Key="SteamButtonHover">#4D6737</Color>
+            <Color x:Key="SteamText">#D8D8D8</Color>
+            <Color x:Key="SteamLink">#6699CC</Color>
 
             <SolidColorBrush x:Key="SteamDarkBrush" Color="{StaticResource SteamDark}"/>
             <SolidColorBrush x:Key="SteamPanelBrush" Color="{StaticResource SteamPanel}"/>
             <SolidColorBrush x:Key="SteamBorderBrush" Color="{StaticResource SteamBorder}"/>
             <SolidColorBrush x:Key="SteamAccentBrush" Color="{StaticResource SteamAccent}"/>
+            <SolidColorBrush x:Key="SteamButtonNormalBrush" Color="{StaticResource SteamButtonNormal}"/>
+            <SolidColorBrush x:Key="SteamButtonHoverBrush" Color="{StaticResource SteamButtonHover}"/>
+            <SolidColorBrush x:Key="SteamTextBrush" Color="{StaticResource SteamText}"/>
+            <SolidColorBrush x:Key="SteamLinkBrush" Color="{StaticResource SteamLink}"/>
 
             <Style TargetType="Button">
-                <Setter Property="Background" Value="#3D5A3D"/>
-                <Setter Property="Foreground" Value="#C7D5C0"/>
-                <Setter Property="BorderBrush" Value="#0E1A0E"/>
+                <Setter Property="Background" Value="{StaticResource SteamButtonNormalBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource SteamTextBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource SteamBorderBrush}"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="Padding" Value="8,4"/>
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="2">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Margin="{TemplateBinding Padding}"/>
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#4A6A4A"/>
-                        <Setter Property="BorderBrush" Value="#8BC53F"/>
+                        <Setter Property="Background" Value="{StaticResource SteamButtonHoverBrush}"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource SteamAccentBrush}"/>
                     </Trigger>
                     <Trigger Property="IsPressed" Value="True">
-                        <Setter Property="Background" Value="#2A3A2A"/>
+                        <Setter Property="Background" Value="{StaticResource SteamAccentBrush}"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
 
             <Style TargetType="TextBox">
-                <Setter Property="Background" Value="#1A2A1A"/>
-                <Setter Property="Foreground" Value="#C7D5C0"/>
-                <Setter Property="BorderBrush" Value="#3D5A3D"/>
+                <Setter Property="Background" Value="{StaticResource SteamBorderBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource SteamTextBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource SteamAccentBrush}"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="Padding" Value="4"/>
-                <Setter Property="CaretBrush" Value="#C7D5C0"/>
+                <Setter Property="CaretBrush" Value="{StaticResource SteamTextBrush}"/>
             </Style>
 
             <Style TargetType="CheckBox">
-                <Setter Property="Foreground" Value="#C7D5C0"/>
+                <Setter Property="Foreground" Value="{StaticResource SteamTextBrush}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="CheckBox">
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="Border" Width="16" Height="16" Background="{StaticResource SteamBorderBrush}" BorderBrush="{StaticResource SteamAccentBrush}" BorderThickness="1" CornerRadius="2">
+                                    <TextBlock x:Name="CheckMark" Text="✓" Foreground="{StaticResource SteamTextBrush}" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+                                </Border>
+                                <ContentPresenter Margin="5,0,0,0"
+                                      VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource SteamAccentBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource SteamButtonHoverBrush}"/>
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource SteamButtonNormalBrush}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <Style TargetType="ListBox">
                 <Setter Property="Background" Value="{StaticResource SteamDarkBrush}"/>
-                <Setter Property="Foreground" Value="#C7D5C0"/>
+                <Setter Property="Foreground" Value="{StaticResource SteamTextBrush}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource SteamBorderBrush}"/>
                 <Setter Property="BorderThickness" Value="1"/>
             </Style>
 
             <Style TargetType="TextBlock">
-                <Setter Property="Foreground" Value="#C7D5C0"/>
+                <Setter Property="Foreground" Value="{StaticResource SteamTextBrush}"/>
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="Background" Value="{StaticResource SteamBorderBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource SteamTextBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource SteamAccentBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <ToggleButton Name="ToggleButton" Background="{StaticResource SteamBorderBrush}" BorderBrush="{StaticResource SteamAccentBrush}" BorderThickness="1" Focusable="False"
+                                  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
+                                    <ToggleButton.Style>
+                                        <Style TargetType="ToggleButton">
+                                            <Setter Property="Background" Value="{StaticResource SteamBorderBrush}"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ToggleButton">
+                                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                            <ContentPresenter/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource SteamButtonNormalBrush}"/>
+                                                    <Setter Property="BorderBrush" Value="{StaticResource SteamButtonHoverBrush}"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ToggleButton.Style>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                        </Grid.ColumnDefinitions>
+                                        <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}"
+                                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Margin="5,3,0,3" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                        <TextBlock Grid.Column="1" Text="▼" FontSize="8" Foreground="{StaticResource SteamTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </ToggleButton>
+                                <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                                    <Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="200">
+                                        <Border Background="{StaticResource SteamBorderBrush}" BorderBrush="{StaticResource SteamAccentBrush}" BorderThickness="1"/>
+                                        <ScrollViewer Margin="1" SnapsToDevicePixels="True">
+                                            <StackPanel IsItemsHost="True"/>
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="Background" Value="{StaticResource SteamBorderBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource SteamTextBrush}"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBoxItem">
+                            <Border Name="Border" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsHighlighted" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource SteamButtonNormalBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource SteamAccentBrush}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="ScrollBar">
+                <Setter Property="Background" Value="{StaticResource SteamBorderBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource SteamAccentBrush}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollBar">
+                            <Grid>
+                                <Border Background="{StaticResource SteamBorderBrush}"/>
+                                <Track Name="PART_Track" IsDirectionReversed="True">
+                                    <Track.Thumb>
+                                        <Thumb>
+                                            <Thumb.Style>
+                                                <Style TargetType="Thumb">
+                                                    <Setter Property="Background" Value="{StaticResource SteamButtonNormalBrush}"/>
+                                                    <Setter Property="BorderBrush" Value="{StaticResource SteamAccentBrush}"/>
+                                                    <Setter Property="BorderThickness" Value="1"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Thumb">
+                                                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"/>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource SteamButtonHoverBrush}"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Thumb.Style>
+                                        </Thumb>
+                                    </Track.Thumb>
+                                </Track>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

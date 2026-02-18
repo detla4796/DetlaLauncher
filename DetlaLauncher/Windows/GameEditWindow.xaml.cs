@@ -100,5 +100,16 @@ namespace DetlaLauncher.Windows
 
             DialogResult = true;
         }
+
+        private void TopBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
     }
 }

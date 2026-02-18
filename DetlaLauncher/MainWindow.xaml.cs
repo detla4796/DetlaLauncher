@@ -7,18 +7,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace DetlaLauncher
 {
     public partial class MainWindow : Window
     {
         private List<Game> games;
+        private List<Game> filteredGames;
+        private string currentSortMode = "name";
 
         public MainWindow()
         {
             InitializeComponent();
             games = GameRepository.Load();
             GamesList.ItemsSource = games;
+            filteredGames = games;
+            UpdateCounter();
+            SortComboBox.SelectedIndex = 0;
         }
 
         private void AddGame_Click(object sender, RoutedEventArgs e)
@@ -36,9 +42,17 @@ namespace DetlaLauncher
         {
             if (GamesList.SelectedItem is Game game)
             {
-                games.Remove(game);
-                GameRepository.Save(games);
-                RefreshList();
+                var dialog = new ConfirmDialog($"Вы уверены, что хотите удалить игру {game.Name}?");
+                dialog.Owner = this;
+                dialog.ShowDialog();
+
+                if (dialog.Result)
+                {
+                    games.Remove(game);
+                    GameRepository.Save(games);
+                    RefreshList();
+                    ClearDetails();
+                }
             }
         }
 
@@ -46,6 +60,7 @@ namespace DetlaLauncher
         {
             GamesList.ItemsSource = null;
             GamesList.ItemsSource = games;
+            UpdateCounter();
         }
 
         private void GamesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -82,14 +97,77 @@ namespace DetlaLauncher
         private void ApplyFilters()
         {
             string q = SearchBox.Text.ToLower();
-
-            var filtered = games.Where(g =>
-                g.Name.ToLower().Contains(q));
+            var filtered = games.Where(g => g.Name.ToLower().Contains(q));
 
             if (FavFilter.IsChecked == true)
+            {
                 filtered = filtered.Where(g => g.IsFavorite);
+            }
 
-            GamesList.ItemsSource = filtered.ToList();
+            filteredGames = filtered.ToList();
+            GamesList.ItemsSource = filteredGames;
+            UpdateCounter();
+        }
+        private void TopBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ClearDetails()
+        {
+            NameText.Text = "";
+            GenreText.Text = "";
+            RatingText.Text = "";
+            FavoriteText.Text = "";
+            DescriptionText.Text = "";
+            SourcesList.ItemsSource = null;
+        }
+
+        private void UpdateCounter()
+        {
+            CounterText.Text = $"Показано: {filteredGames.Count} из {games.Count} игр";
+        }
+
+        private void SortGames()
+        {
+            if (filteredGames == null || filteredGames.Count == 0) return;
+
+            List<Game> sorted;
+            switch (currentSortMode)
+            {
+                case "name":
+                    sorted = filteredGames.OrderBy(g => g.Name).ToList();
+                    break;
+                case "rating":
+                    sorted = filteredGames.OrderByDescending(g => g.Rating).ToList();
+                    break;
+                default:
+                    sorted = filteredGames;
+                    break;
+            }
+
+            filteredGames = sorted;
+            GamesList.ItemsSource = null;
+            GamesList.ItemsSource = filteredGames;
+        }
+
+        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SortComboBox.SelectedIndex == -1) return;
+
+            switch (SortComboBox.SelectedIndex)
+            {
+                case 0: currentSortMode = "name"; break;
+                case 1: currentSortMode = "rating"; break;
+            }
+
+            ApplyFilters();
+            SortGames();
         }
     }
 }
