@@ -18,10 +18,31 @@ namespace DetlaLauncher.Windows
     public partial class GameEditWindow : Window
     {
         public Game Game { get; private set; }
+        private bool isEditMode = false;
 
         public GameEditWindow()
         {
             InitializeComponent();
+            isEditMode = false;
+        }
+
+        public GameEditWindow (Game gameToEdit) : this()
+        {
+            isEditMode = true;
+
+            NameBox.Text = gameToEdit.Name;
+            GenreBox.Text = gameToEdit.Genre;
+            RatingBox.Text = gameToEdit.Rating.ToString();
+            DescriptionBox.Text = gameToEdit.Description;
+            FavoriteCheck.IsChecked = gameToEdit.IsFavorite;
+
+            if (gameToEdit.Sources.Count > 0)
+            {
+                SourceNameBox.Text = gameToEdit.Sources[0].Name;
+                SourceUrlBox.Text = gameToEdit.Sources[0].Url;
+            }
+
+            TitleText.Text = "Редактировать игру";
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

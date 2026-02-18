@@ -16,7 +16,7 @@
 
                 <Button Content="x" DockPanel.Dock="Right" Width="40" Background="{StaticResource SteamBorderBrush}" Foreground="{StaticResource SteamTextBrush}" BorderBrush="{StaticResource SteamAccentBrush}" Click="Close_Click"/>
 
-                <TextBlock Text="Добавить игру" Foreground="{StaticResource SteamTextBrush}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                <TextBlock x:Name="TitleText" Text="Добавить игру" Foreground="{StaticResource SteamTextBrush}" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </DockPanel>
         </Border>
 

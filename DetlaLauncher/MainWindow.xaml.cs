@@ -38,6 +38,26 @@ namespace DetlaLauncher
             }
         }
 
+        private void EditGame_Click(object sender, RoutedEventArgs e)
+        {
+            if (GamesList.SelectedItem is Game game)
+            {
+                var window = new GameEditWindow(game);
+                if (window.ShowDialog() == true)
+                {
+                    int index = games.IndexOf(game);
+                    games[index] = window.Game;
+                    GameRepository.Save(games);
+                    ApplyFilters();
+                    SortGames();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите игру для редактирования");
+            }
+        }
+
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (GamesList.SelectedItem is Game game)
